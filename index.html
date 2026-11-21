@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acaso · Menu digital</title>
+<style>
+:root{--b:#1a4ea5;--bg:#ececed;--cd:#f8f8f9;--ln:#1a4ea53d;--mu:#1a4ea5b0;--dis:"Archivo Black","Arial Black","Segoe UI Black",system-ui,sans-serif;--san:"Montserrat","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--b);font:15px/1.5 var(--san);-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--b);outline-offset:2px}
+h1,h2,h3{font-weight:700;line-height:1.2}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--ln);padding:10px 16px 0}
+.bar{max-width:960px;margin:auto;display:flex;align-items:center;gap:10px}
+.brand{font:900 24px var(--dis);flex:1}
+.tbl{background:none;border:1.5px solid var(--b);border-radius:50%/60%;padding:5px 12px;font-size:14px}
+.ib{position:relative;width:40px;height:40px;border-radius:50%;background:var(--b);color:var(--bg);font-size:17px}
+.ib.dim{background:none;color:var(--b);opacity:.5}
+.badge{position:absolute;top:-4px;right:-4px;background:var(--bg);color:var(--b);border:1.5px solid var(--b);border-radius:10px;font-size:11px;min-width:19px;padding:0 4px;line-height:16px;font-weight:700}
+nav{max-width:960px;margin:6px auto 0;display:flex;gap:4px}
+nav button{padding:8px 16px;opacity:.6;border-bottom:3px solid transparent;font-weight:600}
+nav button.on{opacity:1;border-color:var(--b)}
+main{max-width:960px;margin:auto;padding:16px 16px 90px}
+.hero{text-align:center;padding:30px 0 10px}
+.hero h1{font:900 clamp(60px,17vw,130px)/1 var(--dis);letter-spacing:-.01em}
+.tag{display:inline-block;border:1.5px solid var(--b);border-radius:50%;padding:14px 34px;font-weight:700;margin:16px 0}
+.hero p{max-width:28em;margin:0 auto}
+.cta{background:var(--b);color:var(--bg);border-radius:26px;padding:12px 26px;font-weight:700;transition:transform .15s}
+.cta:active{transform:scale(.97)}
+.hero .cta{margin-top:18px}
+h2.t{font-size:22px;margin:24px 0 10px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
+.chip{flex:none;border:1.5px solid var(--b);border-radius:50%/70%;padding:6px 16px;white-space:nowrap}
+.chip.on{background:var(--b);color:var(--bg)}
+.grid{display:grid;gap:10px}
+@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+.card{display:flex;background:var(--cd);border:1px solid var(--ln);border-radius:14px;overflow:hidden;cursor:pointer}
+.ph{flex:none;width:96px;object-fit:cover}
+.ph.big{width:100%;height:190px;border-radius:12px;margin-bottom:8px}
+.ci{padding:12px 14px;flex:1;display:flex;flex-direction:column;min-width:0}
+.ci h3{font-size:16px}.ci p{color:var(--mu);font-size:13px;flex:1;margin:1px 0 6px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.row b{font-size:16px}
+.add{width:34px;height:34px;border-radius:50%;background:var(--b);color:var(--bg);font-size:20px;line-height:1}
+.search{width:100%;padding:12px 18px;border:1.5px solid var(--b);border-radius:26px;background:var(--cd);margin-bottom:8px}
+.empty{text-align:center;color:var(--mu);padding:40px 10px}
+.info{border-top:1px solid var(--ln);margin-top:30px;padding-top:16px;text-align:center}
+.info a{color:var(--b)}
+#ov{position:fixed;inset:0;background:#0f2a5a99;display:none;align-items:flex-end;justify-content:center;z-index:20}
+#ov.on{display:flex}
+.sh{background:var(--bg);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:20px;animation:up .25s ease-out}
+@media(min-width:600px){#ov{align-items:center}.sh{border-radius:22px}}
+@keyframes up{from{transform:translateY(30px);opacity:0}}
+.sh h2{font-size:24px;margin:4px 0}
+.sh p{color:var(--mu)}
+.pr{display:block;margin:8px 0;font-size:20px}
+.qty{display:flex;align-items:center;gap:14px;margin:10px 0}
+.qty button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--b);font-size:18px}
+textarea,.in{width:100%;border:1px solid var(--ln);border-radius:12px;padding:10px;background:var(--cd);margin:4px 0 12px}
+label{font-size:14px;color:var(--mu)}
+.sh .cta{width:100%}
+.line{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln)}
+.line>div:first-child{flex:1;min-width:0}.line small{color:var(--mu);display:block}
+.tot{display:flex;justify-content:space-between;padding:6px 0}
+.tot.f{font-size:19px;font-weight:700}
+.ok{width:60px;height:60px;border-radius:50%;background:var(--b);color:var(--bg);display:grid;place-items:center;font-size:30px;margin:0 auto 6px;animation:pop .4s}
+@keyframes pop{from{transform:scale(.4)}}
+.st{display:inline-block;border:1.5px solid var(--b);border-radius:12px;padding:1px 12px;font-size:13px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--b);color:var(--bg);padding:10px 20px;border-radius:24px;transition:.25s;z-index:30;opacity:0}
+#toast.on{transform:translate(-50%,0);opacity:1}
+.ad{background:var(--cd);border:1px solid var(--ln);border-radius:14px;padding:14px;margin-bottom:10px}
+.ad select,.ad input:not([type=checkbox]){border:1px solid var(--ln);border-radius:8px;padding:6px 8px;background:var(--bg)}
+.pa{display:grid;grid-template-columns:1fr 90px auto auto;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid var(--ln)}
+.pa input[type=text],.pa input[type=number]{width:100%}
+.fm{display:grid;gap:6px;grid-template-columns:1fr 1fr}
+.fm .w{grid-column:1/-1}
+.lnk{text-decoration:underline;padding:6px}
+.x{padding:6px;opacity:.7}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+ <div class="bar">
+  <div class="brand">ACASO</div>
+  <select class="tbl" id="tsel" aria-label="Mesa"></select>
+  <button class="ib" data-act="cart" aria-label="Carrinho">🛒<span class="badge" id="bd" hidden>0</span></button>
+ </div>
+ <nav id="nav"><button data-act="go" data-v="home">Início</button><button data-act="go" data-v="menu">Menu</button></nav>
+</header>
+<main id="m"></main>
+<div id="ov"><div class="sh" id="sh" role="dialog" aria-modal="true"></div></div>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eur=n=>n.toLocaleString('pt-PT',{style:'currency',currency:'EUR'}),pad=(n,k=2)=>String(n).padStart(k,'0');
+const CATS=['Partilha','Conforto','Sobremesas','Final(mente)','Cocktails','Gin e Whisky','Cerveja','Sem álcool','Café','Vinhos'];
+const ST=['Novo pedido','Aceite','Em preparação','Pronto','Entregue','Cancelado'];
+const FAV=['O nosso polvo','Bacalhau do Sr Brás','Vazia Argentina','Tártaro de novilho','Amor eterno'];
+const SEED=[
+["O que houver|Couvert|5","Azeitonas marinadas|Marinated olives|3.9","Chips de batata doce|Sweet potato chips|5.9","Queijo flor do vale|Lisbon's best cheese|14","Presunto 36m cura|Prosciutto 36 months|14","Rabanada e presunto|Brioche & prosciutto|7.8","Sardinha à chão frio|Sardine with a twist|12.3","Tártaro de novilho|Beef tartare|13.8","Couve trufada|Truffled cabbage|13.4","Porco à Portuguesa|Pork bites, rustic style|14.7","Camarões salteados|Sautéed shrimps|17.9","Burrata e pesto|Burrata and pesto|13.9","Solomillo de Seia||14.4","Sashimi dos Açores|Sashimi from Açores|13.2","Polvo laminado|Laminated octopus|12.8","Prego de porco preto|Black pork sandwich|12.2","Prego de atum|Tuna sandwich|12.2"],
+["O nosso polvo|Our sweet octopus|22","Bacalhau do Sr Brás|Sr Brás codfish|18","Vazia Argentina|Argentinian sirloin steak|24","Rizotto de cogumelos trufados|Mushroom risotto with truffled olive oil|21","Prato do chefe|Chef's special|20.5"],
+["Amor eterno|Chocolate lover|6.7","Tarte de lima|Lime tart|6.7","Tarte de bolacha|Biscuit tart|6.7"],
+["Porto|Port wine|4.7","Porto 10 anos|10-year-old port|7.5","Porto 20 anos|20-year-old port|10","Vinho da Madeira|Madeira wine|6.5","Moscatel||5","Ginjinha||4.3","CRF Aged Grappa||7.5"],
+["Aperol||8.5","Negroni||9","Amarguinha Sour||6.5","PorTonic||8.5","Expresso Martini||11.5","The Mulle||11.5","Pisco Sour||11.5","Caipirinha||9","Margarita||11.5","Mojito||10.5"],
+["Gordon's|Gin|8.5","Hendrick's|Gin|11.5","Bushmills|Whisky|7","Nikka|Whisky|10.5"],
+["Imperial ou Fino|Imperial or Fino|2","Caneca ou Pint|Caneca or Pint|4","Cidra|Cider|4"],
+["Mojito free|Mocktail|7.8","Mulle free|Mocktail|7.8","Gin bee 0.0|Mocktail|7.8","Chá gelado caseiro|Homemade iced tea|3.5","Limonada|Lemonade|3.5","Ginger beer||4","Coca-Cola||3.5","Água tónica|Tonic water|2.5","Sumo de laranja|Orange juice|4.5","Água filtrada ACASO|ACASO filtered water|2.5","Água com gás 0,25||2.5","Água com gás 0,50||4.5"],
+["Espresso||2","Cappuccino||4"],
+["Vinho da casa (copo)|House wine by the glass|5","Wine experience|Três copos de vinho à escolha do chefe|20","Port wine experience|Porto, Porto 10 anos e Porto 20 anos|20"]];
+const W=[['Escudial','Branco, Dão, Malvasia fina',7,29],['Camolas','Branco, Palmela, Moscatel graúdo',5,19],['Devesa','Branco, Douro, Viosinho',6,25],['Mª Bonita','Verde, Alvarinho e Loureiro',6,25],['Camolas','Rosé, Palmela, Moscatel roxo',5,20],['Escudial','Tinto, Dão, Alfrocheiro e Jaen',7,29],['Camolas','Tinto, Palmela, Castelão e Alicante',5,19],['Terrinha','Tinto, Douro, 3 T\'s',6,25],['Pontual','Tinto, Alentejo, Syrah',6.5,26],['Poço Lobo','Espumante, Bairrada, Arinto e Chardonnay',7.5,30]];
+const fresh=()=>{let id=0;const P=[],mk=(c,n,d,p)=>P.push({id:++id,cat:c,name:n,desc:d,price:+p,fav:FAV.includes(n),on:true});
+ SEED.forEach((g,c)=>g.forEach(s=>{const[a,b,p]=s.split('|');mk(c,a,b,p)}));
+ W.forEach(w=>{mk(9,w[0]+' (copo)',w[1],w[2]);mk(9,w[0]+' (garrafa)',w[1],w[3])});
+ return{products:P,orders:[],seq:0,nid:id+1}};
+const load=()=>{try{const x=JSON.parse(localStorage.getItem('acaso.v1'));if(x&&Array.isArray(x.products))return x}catch(e){}return null};
+let D=load()||fresh();
+const save=()=>{try{localStorage.setItem('acaso.v1',JSON.stringify(D))}catch(e){toast('Não foi possível guardar os dados')}};save();
+const prod=id=>D.products.find(p=>p.id==id),norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+let view='home',q='',cat='all',cart=[],onotes='',cur=null,confOpen=0;
+let table=(()=>{const t=new URLSearchParams(location.search).get('table');return /^(0?[1-9]|1\d|2[0-4])$/.test(t||'')?pad(+t):'01'})();
+$('#tsel').innerHTML=Array.from({length:24},(_,i)=>`<option value="${pad(i+1)}">Mesa ${pad(i+1)}</option>`).join('');
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1800)}
+const media=(p,c='')=>p.img?`<img class="ph ${c}" src="${E(p.img)}" alt="${E(p.name)}">`:'';
+const card=p=>`<article class="card" data-act="open" data-id="${p.id}" tabindex="0">${media(p)}<div class="ci"><h3>${E(p.name)}</h3><p>${E(p.desc)}</p><div class="row"><b>${eur(p.price)}</b><button class="add" data-act="quick" data-id="${p.id}" aria-label="Adicionar ${E(p.name)} ao carrinho">+</button></div></div></article>`;
+function upd(){const n=cart.reduce((a,l)=>a+l.q,0);$('#bd').hidden=!n;$('#bd').textContent=n;$('#tsel').value=table;
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==view));}
+function render(){upd();({home,menu})[view]();scrollTo(0,0)}
+function home(){const f=D.products.filter(p=>p.on&&p.fav);
+ $('#m').innerHTML=`<section class="hero"><h1>ACASO</h1><div class="tag">DESDE 1920</div><p>Bem-vindo, está na mesa ${table}. Escolha o que lhe apetecer, adicione ao carrinho e nós tratamos do resto.</p><button class="cta" data-act="go" data-v="menu">Ver o menu</button></section>
+ <h2 class="t">Categorias</h2><div class="chips">${CATS.map((c,i)=>`<button class="chip" data-act="cat" data-c="${i}">${c}</button>`).join('')}</div>
+ <h2 class="t">Sugestões da casa</h2><div class="grid">${f.map(card).join('')||'<p class="empty">Sem sugestões de momento.</p>'}</div>
+ <div class="info"><b>Onde estamos</b><p>R. do Merca-Tudo 4, 1200-447 Lisboa<br>Green Street<br>Fecha às 00:00<br><a href="tel:+351936248218">936 248 218</a></p></div>`}
+function menu(){$('#m').innerHTML=`<input class="search" id="q" type="search" placeholder="Pesquisar no menu" value="${E(q)}" aria-label="Pesquisar no menu"><div class="chips"><button class="chip ${cat=='all'?'on':''}" data-act="cat" data-c="all">Tudo</button>${CATS.map((c,i)=>`<button class="chip ${cat==i?'on':''}" data-act="cat" data-c="${i}">${c}</button>`).join('')}</div><div id="list"></div>`;fill()}
+function fill(){const n=norm(q.trim());let h='';
+ CATS.forEach((c,i)=>{if(cat!='all'&&cat!=i)return;const l=D.products.filter(p=>p.cat==i&&p.on&&(!n||norm(p.name+' '+p.desc).includes(n)));if(l.length)h+=`<h2 class="t">${c}</h2><div class="grid">${l.map(card).join('')}</div>`});
+ $('#list').innerHTML=h||'<p class="empty">Nada encontrado. Experimente outra pesquisa ou categoria.</p>'}
+function sheet(h){$('#sh').innerHTML=h;$('#ov').classList.add('on')}
+const close=()=>{confOpen=0;$('#ov').classList.remove('on')};
+function openP(id){const p=prod(id);cur={id,q:1};sheet(`${media(p,'big')}<h2>${E(p.name)}</h2><p>${E(p.desc)}</p><b class="pr">${eur(p.price)}</b><div class="qty"><button data-act="dq" data-d="-1" aria-label="Menos">−</button><b id="dq">1</b><button data-act="dq" data-d="1" aria-label="Mais">+</button></div><label for="dn">Observações</label><textarea id="dn" maxlength="200" placeholder="Ex.: sem gelo, bem passado"></textarea><button class="cta" data-act="addd" id="dadd">Adicionar ${eur(p.price)}</button>`)}
+function add(id,q=1,n=''){const l=cart.find(x=>x.id==id&&x.n==n);l?l.q+=q:cart.push({id,q,n});upd();toast('Adicionado ao carrinho')}
+const total=()=>Math.round(cart.reduce((a,l)=>a+(prod(l.id)?prod(l.id).price*l.q:0),0)*100)/100;
+function openCart(){const t=$('#on');if(t)onotes=t.value;cart=cart.filter(l=>prod(l.id));upd();
+ if(!cart.length)return sheet(`<h2>O carrinho está vazio</h2><p>Escolha pratos ou bebidas no menu para começar o pedido.</p><br><button class="cta" data-act="go" data-v="menu">Ver o menu</button>`);
+ sheet(`<h2>O seu pedido, mesa ${table}</h2>${cart.map((l,i)=>{const p=prod(l.id);return `<div class="line"><div><b>${E(p.name)}</b><small>${eur(p.price)}${l.n?' · '+E(l.n):''}</small></div><div class="qty" style="margin:0"><button data-act="cq" data-i="${i}" data-d="-1" aria-label="Menos">−</button><b>${l.q}</b><button data-act="cq" data-i="${i}" data-d="1" aria-label="Mais">+</button></div><button class="x" data-act="rm" data-i="${i}" aria-label="Remover ${E(p.name)}">✕</button></div>`}).join('')}
+ <div class="tot" style="margin-top:10px"><span>Subtotal</span><span>${eur(total())}</span></div><div class="tot f"><span>Total</span><span>${eur(total())}</span></div><label for="on">Observações ao pedido</label><textarea id="on" maxlength="300" placeholder="Ex.: alergia a frutos secos">${E(onotes)}</textarea><button class="cta" data-act="conf">Confirmar pedido</button>`)}
+function confirmOrder(){const fr=load();if(fr)D=fr;const items=cart.map(l=>{const p=prod(l.id);return p&&{name:p.name,price:p.price,qty:l.q,notes:l.n}}).filter(Boolean);if(!items.length)return;
+ const o={id:++D.seq,table,items,notes:($('#on')||{}).value||'',total:total(),status:0,time:Date.now()};D.orders.unshift(o);save();cart=[];onotes='';upd();showConf(o)}
+function showConf(o){confOpen=o.id;sheet(`<div class="ok">✓</div><h2 style="text-align:center">Pedido confirmado</h2><p style="text-align:center">Recebemos o seu pedido e será servido na mesa ${o.table}.</p><div class="ad" style="margin-top:14px"><div class="tot"><b>Pedido nº ${pad(o.id,4)}</b><span class="st">${ST[o.status]}</span></div><div class="tot"><span>Mesa ${o.table}</span></div>${o.items.map(i=>`<div class="tot"><span>${i.qty}× ${E(i.name)}${i.notes?' ('+E(i.notes)+')':''}</span><span>${eur(i.price*i.qty)}</span></div>`).join('')}${o.notes?`<p>Obs.: ${E(o.notes)}</p>`:''}<div class="tot f"><span>Total</span><span>${eur(o.total)}</span></div></div><p style="text-align:center;font-size:13px">Pedido de demonstração, guardado apenas neste navegador.</p><br><button class="cta" data-act="close">Fechar</button>`)}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(e.target.id=='ov')return close();if(!b)return;const d=b.dataset,a=d.act;
+ if(a=='go'){view=d.v;close();render()}
+ else if(a=='cat'){cat=d.c=='all'?'all':+d.c;q='';view='menu';render()}
+ else if(a=='open')openP(d.id);
+ else if(a=='quick')add(+d.id);
+ else if(a=='dq'){cur.q=Math.min(20,Math.max(1,cur.q+ +d.d));$('#dq').textContent=cur.q;$('#dadd').textContent='Adicionar '+eur(prod(cur.id).price*cur.q)}
+ else if(a=='addd'){add(cur.id,cur.q,$('#dn').value.trim());close()}
+ else if(a=='cart')openCart();
+ else if(a=='cq'){const l=cart[d.i];l.q=Math.min(20,Math.max(1,l.q+ +d.d));openCart()}
+ else if(a=='rm'){cart.splice(d.i,1);openCart()}
+ else if(a=='conf')confirmOrder();
+ else if(a=='close')close();});
+document.addEventListener('change',e=>{if(e.target.id=='tsel'){table=e.target.value;render()}});
+document.addEventListener('input',e=>{if(e.target.id=='q'){q=e.target.value;fill()}});
+document.addEventListener('keydown',e=>{if(e.key=='Escape')close();if(e.key=='Enter'&&e.target.classList.contains('card'))openP(e.target.dataset.id)});
+addEventListener('storage',e=>{if(e.key!='acaso.v1')return;const fr=load();if(!fr)return;D=fr;
+ if(view=='menu')fill();else home();
+ if(confOpen&&$('#ov').classList.contains('on')){const o=D.orders.find(x=>x.id==confOpen);if(o)showConf(o)}});
+render();
+</script>
+</body>
+</html>
